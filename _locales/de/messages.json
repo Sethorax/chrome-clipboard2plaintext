@@ -1,0 +1,17 @@
+{
+    "extName": {
+        "message": "Clipboard2Plaintext"
+    },
+    "extDescription": {
+        "message": "Mit dieser Erweiterung kann man Inhalte aus der Zwischenablage als Klartext einfügen. Korrupte Umlaute werden auch korrigiert."
+    },
+    "browserAction": {
+        "message": "Als Klartext einfügen"
+    },
+    "commandDescription": {
+        "message": "Als Klartext einfügen"
+    },
+    "contextMenuTitle": {
+        "message": "Als Klartext einfügen"
+    }
+}
