@@ -23,4 +23,17 @@ class ClipboardUtility {
 
         return cbElement.value;
     }
+
+    static writeClipboardContents(content) {
+        if (!cbElement) {
+            cbElement = document.createElement('textarea');
+            document.getElementsByTagName('body')[0].appendChild(cbElement);
+        }
+
+        cbElement.value = content;
+        cbElement.focus();
+        document.execCommand('selectAll');
+        document.execCommand('copy');
+        cbElement.value = '';
+    }
 }

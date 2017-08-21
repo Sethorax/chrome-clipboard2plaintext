@@ -11,8 +11,13 @@ class ContentInjector {
         chrome.runtime.onMessage.addListener(this.handleOnMessage);
     }
 
-    handleOnMessage(message) {
-        this.pasteToActiveFormfield(message);
+    handleOnMessage(message, sender, sendResponse) {
+        const activeElement = this.getActiveElement(document);
+        const doc = activeElement.ownerDocument;
+
+        doc.execCommand('paste');
+
+        sendResponse('restore-clipboard');
     }
 
     pasteToActiveFormfield(value) {

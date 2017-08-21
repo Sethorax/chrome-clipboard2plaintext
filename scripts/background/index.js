@@ -69,7 +69,10 @@ class Extension {
         const clipboardContents = ClipboardUtility.getClipboardContents();
         const cleanText = TextConverter.fixUmlauts(clipboardContents);
 
-        ActiveTabUtility.setValueOfFormElement(cleanText);
+        ClipboardUtility.writeClipboardContents(cleanText);
+        ActiveTabUtility.pasteInContent(cleanText).then(() => {
+            ClipboardUtility.writeClipboardContents(clipboardContents);
+        });
     }
 }
 

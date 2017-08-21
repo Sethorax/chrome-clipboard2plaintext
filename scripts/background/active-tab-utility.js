@@ -9,9 +9,13 @@ class ActiveTabUtility {
      * 
      * @param {string} value 
      */
-    static setValueOfFormElement(value) {
-        ActiveTabUtility.injectScript().then(() => {
-            chrome.tabs.sendMessage(Extension.activeTab.id, value);
+    static pasteInContent(value) {
+        return new Promise(resolve => {
+            ActiveTabUtility.injectScript().then(() => {
+                chrome.tabs.sendMessage(Extension.activeTab.id, value, response => {
+                    resolve();     
+                });
+            });
         });
     }
 
