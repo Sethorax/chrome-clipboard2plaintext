@@ -1,12 +1,13 @@
 # Chrome Extension ``Clipboard2Plaintext``
 
-> This extension lets you paste contents from the clipboard as plain text. Malformed umlauts will also be replaced.
+> Copy and paste as plain text. Also fixes malformed umlauts.
 
 ### Features
 
 - Adds context menu entry to paste as plaintext.
 - Lets you paste as plaintext via a click on the extension icon (browser action).
 - Lets you paste as plaintext via a shortcut (Ctrl+C).
+- Lets you copy content from web pages as plaintext via a shortcut (Ctrl+V).
 
 
 ### Installation
