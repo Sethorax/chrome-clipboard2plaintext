@@ -3,13 +3,16 @@
         "message": "Clipboard2Plaintext"
     },
     "extDescription": {
-        "message": "This extension lets you paste contents from the clipboard as plain text. It also fixes malformed umlauts."
+        "message": "Copy and paste as plain text. Also fixes malformed umlauts."
     },
     "browserAction": {
         "message": "Paste as Plaintext"
     },
     "commandDescription": {
         "message": "Paste as Plaintext"
+    },
+    "commandCopyAsPlaintextDescription": {
+        "message": "Copy as Plaintext"
     },
     "contextMenuTitle": {
         "message": "Paste as Plaintext"

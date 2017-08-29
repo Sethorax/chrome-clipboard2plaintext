@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "__MSG_extName__",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "default_locale": "en",
     "description": "__MSG_extDescription__",
     "icons": {
@@ -36,6 +36,13 @@
                 "mac": "MacCtrl+V"
             },
             "description": "__MSG_commandDescription__"
+        },
+        "copyAsPlaintext": {
+            "suggested_key": {
+                "default": "Ctrl+C",
+                "mac": "MacCtrl+C"
+            },
+            "description": "__MSG_commandCopyAsPlaintextDescription__"
         }
     },
     "permissions": [

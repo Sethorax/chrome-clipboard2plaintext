@@ -24,6 +24,7 @@ class Extension {
         this.createContextMenu();
         this.handleContextMenuClick();
         this.handleBrowserAction();
+        this.handleCommands();
     }
 
     /**
@@ -45,7 +46,7 @@ class Extension {
             activeTab = tab;
 
             if (event.menuItemId === this.contextMenuId) {
-                this.convertClipboardContents();        
+                this.convertClipboardContents(true);        
             }
         });
     }
@@ -57,22 +58,43 @@ class Extension {
         chrome.browserAction.onClicked.addListener(tab => {
             activeTab = tab;
 
-            this.convertClipboardContents();
+            this.convertClipboardContents(true);
+        });
+    }
+
+    /**
+     * Handle commands
+     */
+    handleCommands() {
+        chrome.commands.onCommand.addListener(command => {
+            chrome.tabs.query({ active: true }, tabs => {
+                activeTab = tabs[0];
+
+                ActiveTabUtility.copyContent().then(() => {
+                    this.convertClipboardContents();
+                });
+            });
+
         });
     }
 
     /**
      * Get the current clipboard content and convert it's contents.
      * Paste the converted content to the active element.
+     * 
+     * @param {boolean} pasteToContent
      */
-    convertClipboardContents() {
+    convertClipboardContents(pasteToContent = false) {
         const clipboardContents = ClipboardUtility.getClipboardContents();
         const cleanText = TextConverter.fixUmlauts(clipboardContents);
 
         ClipboardUtility.writeClipboardContents(cleanText);
-        ActiveTabUtility.pasteInContent(cleanText).then(() => {
-            ClipboardUtility.writeClipboardContents(clipboardContents);
-        });
+
+        if (pasteToContent) {
+            ActiveTabUtility.pasteInContent(cleanText).then(() => {
+                ClipboardUtility.writeClipboardContents(clipboardContents);
+            });
+        }
     }
 }
 

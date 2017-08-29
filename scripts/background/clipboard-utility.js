@@ -24,6 +24,12 @@ class ClipboardUtility {
         return cbElement.value;
     }
 
+    /**
+     * Creates a textarea in the background DOM.
+     * Sets textarea value and copys everything to the clipboard.
+     * 
+     * @param {string} content 
+     */
     static writeClipboardContents(content) {
         if (!cbElement) {
             cbElement = document.createElement('textarea');

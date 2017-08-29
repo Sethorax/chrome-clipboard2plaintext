@@ -1,19 +1,30 @@
-let injectedScriptTabList = [];
+let injectionPromise = null;
 
 /**
  * ActiveTabUtility class
  */
 class ActiveTabUtility {
     /**
-     * Inject the content script and send the converted text to the content script via a message.
-     * 
-     * @param {string} value 
+     * Inject the content script and tell it to execute the paste command.
      */
-    static pasteInContent(value) {
+    static pasteInContent() {
         return new Promise(resolve => {
             ActiveTabUtility.injectScript().then(() => {
-                chrome.tabs.sendMessage(Extension.activeTab.id, value, response => {
+                chrome.tabs.sendMessage(Extension.activeTab.id, {type: 'paste'}, response => {
                     resolve();     
+                });
+            });
+        });
+    }
+
+    /**
+     * Inject the content script and tell it to execute the copy command.
+     */
+    static copyContent() {
+        return new Promise(resolve => {
+            ActiveTabUtility.injectScript().then(() => {
+                chrome.tabs.sendMessage(Extension.activeTab.id, {type: 'copy'}, response => {
+                    resolve();
                 });
             });
         });
@@ -25,17 +36,20 @@ class ActiveTabUtility {
      */
     static injectScript() {
         return new Promise((resolve, reject) => {
-            if (injectedScriptTabList.indexOf(Extension.activeTab.id) === -1) {
-                if (Extension.activeTab.url.indexOf('chrome://') === -1) {
-                    chrome.tabs.executeScript({
-                        file: 'scripts/content/inject.js'
-                    }, () => {
-                        injectedScriptTabList.push(Extension.activeTab.id);
+            if (Extension.activeTab.url.indexOf('chrome://') === -1) {
+                chrome.tabs.executeScript({
+                    code: 'typeof ContentInjector === "function";'
+                }, isLoaded => {
+                    if (isLoaded[0]) {
                         resolve();
-                    });
-                }
-            } else {
-                resolve();
+                    } else {
+                        chrome.tabs.executeScript({
+                            file: 'scripts/content/inject.js'
+                        }, () => {
+                            resolve();
+                        });
+                    }
+                });
             }
         });
     }

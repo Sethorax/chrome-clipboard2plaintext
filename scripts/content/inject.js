@@ -12,30 +12,31 @@ class ContentInjector {
     }
 
     handleOnMessage(message, sender, sendResponse) {
-        const activeElement = this.getActiveElement(document);
-        const doc = activeElement.ownerDocument;
+        console.log(message.type);
+        switch (message.type) {
+            case 'paste':
+                this.pasteToDocument();
+                break;
 
-        doc.execCommand('paste');
-
-        sendResponse('restore-clipboard');
-    }
-
-    pasteToActiveFormfield(value) {
-        const activeElement = this.getActiveElement(document);
-        const isEditable = this.checkElementEditibility(activeElement);
-
-        if (isEditable) {
-            const preText = activeElement.value.substring(0, activeElement.selectionStart);
-            const afterText = activeElement.value.substring(activeElement.selectionEnd);
-
-            activeElement.value = preText + value + afterText;
+            case 'copy':
+                this.copyFromDocument();
+                break;
         }
+
+        sendResponse();
     }
 
-    checkElementEditibility(element) {
-        const formElements = ['INPUT', 'TEXTAREA'];
+    pasteToDocument(sendResponse) {
+        this.getActiveDocument().execCommand('paste');
+    }
 
-        return formElements.indexOf(element.tagName) > -1 || element.isContentEditable;
+    copyFromDocument(sendResponse) {
+        this.getActiveDocument().execCommand('copy');
+    }
+
+    getActiveDocument() {
+        const activeElement = this.getActiveElement(document);
+        return activeElement.ownerDocument;
     }
 
     getActiveElement(document) {

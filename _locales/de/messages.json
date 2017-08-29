@@ -3,13 +3,16 @@
         "message": "Clipboard2Plaintext"
     },
     "extDescription": {
-        "message": "Mit dieser Erweiterung kann man Inhalte aus der Zwischenablage als Klartext einfügen. Korrupte Umlaute werden auch korrigiert."
+        "message": "Kopieren und Einfügen als reinen Text. Korrupte Umlaute werden auch korrigiert."
     },
     "browserAction": {
         "message": "Als Klartext einfügen"
     },
     "commandDescription": {
         "message": "Als Klartext einfügen"
+    },
+    "commandCopyAsPlaintextDescription": {
+        "message": "Als Klartext kopieren"
     },
     "contextMenuTitle": {
         "message": "Als Klartext einfügen"
